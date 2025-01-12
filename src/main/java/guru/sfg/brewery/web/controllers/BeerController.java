@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,27 +40,27 @@ public class BeerController {
         return "beers/findBeers";
     }
 
-    @GetMapping
-    public String processFindFormReturnMany(Beer beer, BindingResult result, Model model) {
-        // find beers by name
-        //ToDO: Add Service
-        //ToDO: Get paging data from view
-        Page<Beer> pagedResult = beerRepository.findAllByBeerName(beer.getBeerName(), createPageRequest(0, 10, Sort.Direction.DESC, "beerName"));
-        List<Beer> beerList = pagedResult.getContent();
-        if (beerList.isEmpty()) {
-            // no beers found
-            result.rejectValue("beerName", "notFound", "not found");
-            return "beers/findBeers";
-        } else if (beerList.size() == 1) {
-            // 1 beer found
-            beer = beerList.get(0);
-            return "redirect:/beers/" + beer.getId();
-        } else {
-            // multiple beers found
-            model.addAttribute("selections", beerList);
-            return "beers/beerList";
-        }
-    }
+//    @GetMapping
+//    public String processFindFormReturnMany(Beer beer, BindingResult result, Model model) {
+//        // find beers by name
+//        //ToDO: Add Service
+//        //ToDO: Get paging data from view
+//        Page<Beer> pagedResult = beerRepository.findAllByBeerName(beer.getBeerName(), createPageRequest(0, 10, Sort.Direction.DESC, "beerName"));
+//        List<Beer> beerList = pagedResult.getContent();
+//        if (beerList.isEmpty()) {
+//            // no beers found
+//            result.rejectValue("beerName", "notFound", "not found");
+//            return "beers/findBeers";
+//        } else if (beerList.size() == 1) {
+//            // 1 beer found
+//            beer = beerList.get(0);
+//            return "redirect:/beers/" + beer.getId();
+//        } else {
+//            // multiple beers found
+//            model.addAttribute("selections", beerList);
+//            return "beers/beerList";
+//        }
+//    }
 
 
     @GetMapping("/{beerId}")
@@ -111,11 +111,11 @@ public class BeerController {
         }
     }
 
-    private PageRequest createPageRequest(int page, int size, Sort.Direction sortDirection, String propertyName) {
-        return PageRequest.of(page,
-                size,
-                new Sort(sortDirection, propertyName));
-    }
+//    private PageRequest createPageRequest(int page, int size, Sort.Direction sortDirection, String propertyName) {
+//        return PageRequest.of(page,
+//                size,
+//                new Sort(sortDirection, propertyName));
+//    }
 }
 
 
